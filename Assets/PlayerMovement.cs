@@ -20,6 +20,43 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        rb.MovePosition(rb.position + movement * movSpeed * Time.fixedDeltaTime);
+        //get the direction of the player and move it
+        
+        if(movement.x != 0 && movement.y != 0)
+        {
+            if (canMove(new Vector2(movement.x, movement.y)))
+            {
+                rb.MovePosition(rb.position + new Vector2(movement.x, movement.y) * movSpeed * Time.fixedDeltaTime);
+            }
+        }
+        else if (movement.x != 0)
+        {
+            if (canMove(new Vector2(movement.x, 0)))
+            {
+                rb.MovePosition(rb.position + movement * movSpeed * Time.fixedDeltaTime);
+            }
+        }
+        else if (movement.y != 0)
+        {
+            if (canMove(new Vector2(0, movement.y)))
+            {
+                rb.MovePosition(rb.position + movement * movSpeed * Time.fixedDeltaTime);
+            }
+        }
+    }
+
+    private bool canMove(Vector2 dir)
+    {
+        // check the direction of the player and if the next tile is a wall or not 
+        Vector2 pos = transform.position;
+        RaycastHit2D hit = Physics2D.Linecast(pos + dir, pos);
+        if (hit.collider != null)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
     }
 }
