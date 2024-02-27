@@ -16,7 +16,7 @@ public class EnemyMovement : MonoBehaviour
     {
         int perc = Random.Range(0, 10);
 
-        if (perc < 5)
+        if (perc < 7)
         {
             movement.x = player.position.x - rb.position.x;
             movement.y = player.position.y - rb.position.y;
@@ -70,7 +70,7 @@ public class EnemyMovement : MonoBehaviour
         // check the direction of the player and if the next tile is a wall or not 
         Vector2 pos = transform.position;
         RaycastHit2D hit = Physics2D.Linecast(pos + dir, pos);
-        if (hit.collider != null)
+        if (!hit.collider.name.Equals("Enemy"))
         {
             return false;
         }

@@ -8,6 +8,9 @@ public class PlayerMovement : MonoBehaviour
     Vector2 movement;
     public Rigidbody2D rb;
 
+    //get the player health script
+    public EntityHealtBar playerHealth;
+
 
     // Update is called once per frame
     void Update()
@@ -50,13 +53,24 @@ public class PlayerMovement : MonoBehaviour
         // check the direction of the player and if the next tile is a wall or not 
         Vector2 pos = transform.position;
         RaycastHit2D hit = Physics2D.Linecast(pos + dir, pos);
-        if (hit.collider != null)
+        if (!hit.collider.name.Equals("Player") && !hit.collider.tag.Equals("Enemy"))
         {
             return false;
         }
         else
         {
             return true;
+        }
+    }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+
+        //Check for a match with the specific tag on any GameObject that collides with your GameObject
+        if (collision.gameObject.tag == "Enemy")
+        {
+            //If the GameObject's tag matches the one you provide, output this message in the console
+            playerHealth.TakeDamage(10);
         }
     }
 }
