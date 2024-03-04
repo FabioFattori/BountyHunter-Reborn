@@ -8,17 +8,34 @@ public class PlayerMovement : MonoBehaviour
     Vector2 movement;
     public Rigidbody2D rb;
 
+    public movementDirection direction;
+
     //get the player health script
     public EntityHealtBar playerHealth;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        rb = GetComponent<Rigidbody2D>();
+        playerHealth = GetComponent<EntityHealtBar>();
+        direction = movementDirection.Down;
+    }
 
 
     // Update is called once per frame
     void Update()
     {
-        movement.x = Input.GetAxisRaw("Horizontal");
-        movement.y = Input.GetAxisRaw("Vertical");
-
-        
+        if(Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
+        {
+            // get the input from the player
+            movement.x = Input.GetAxisRaw("Horizontal");
+            movement.y = Input.GetAxisRaw("Vertical");
+        }
+        else
+        {
+            movement.x = 0;
+            movement.y = 0;
+        }        
     }
 
     void FixedUpdate()
@@ -45,6 +62,23 @@ public class PlayerMovement : MonoBehaviour
             {
                 rb.MovePosition(rb.position + movement * movSpeed * Time.fixedDeltaTime);
             }
+        }
+
+        if (movement.x > 0)
+        {
+            direction = movementDirection.Right;
+        }
+        else if (movement.x < 0)
+        {
+            direction = movementDirection.Left;
+        }
+        else if (movement.y > 0)
+        {
+            direction = movementDirection.Up;
+        }
+        else if (movement.y < 0)
+        {
+            direction = movementDirection.Down;
         }
     }
 
