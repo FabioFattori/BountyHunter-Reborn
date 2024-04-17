@@ -15,7 +15,7 @@ public class loadTile : MonoBehaviour
 
     [SerializeField] Camera cam;
 
-
+    public string fileName = "map.txt";
 
     
 
@@ -23,7 +23,7 @@ public class loadTile : MonoBehaviour
     void Start()
     {
         //open file and read the tile position, the file is in the position ../Tiles/maps/map.txt
-        string fileName = "map.txt";
+        
         string filePath = Path.Combine("Assets/Tiles/maps/", fileName);
         string[] lines = File.ReadAllLines(filePath);
         for (int i = 0; i < lines.Length; i++)

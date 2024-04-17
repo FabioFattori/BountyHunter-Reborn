@@ -64,6 +64,11 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
+        //get the animator 
+        Animator animator = GetComponent<Animator>();
+        animator.SetFloat("Horizontal", movement.x);
+        animator.SetFloat("Vertical", movement.y);
+
         if (movement.x > 0)
         {
             direction = movementDirection.Right;
