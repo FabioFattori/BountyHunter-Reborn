@@ -13,10 +13,12 @@ public class SceneChanger : MonoBehaviour
         Hub,
         GameOver
     }
-    
+
     public GameObject LoadingScreenObject;
-    public Slider loadingBarFill;
+    public LoadingBar loadingBar;
     public Scene CurrentScene;
+
+
 
     public void ChangeScene(Scene scene)
     {
@@ -29,6 +31,9 @@ public class SceneChanger : MonoBehaviour
             case Scene.Hub:
                 LoadScene("Hub");
                 break;
+            case Scene.MainMenu:
+                LoadScene("BountyHunter");
+                break;
             default:
                 LoadScene("OpenWorld");
                 break;
@@ -38,7 +43,16 @@ public class SceneChanger : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        ChangeScene(Scene.OpenWorld);
+        if (CurrentScene == Scene.MainMenu)
+        {
+            LoadingScreenObject.SetActive(true);
+            ChangeScene(Scene.OpenWorld);
+        }
+        else
+        {
+            //change the display of the loading screen
+            LoadingScreenObject.SetActive(false);
+        }
     }
 
     private void LoadScene(string sceneName)
@@ -53,10 +67,12 @@ public class SceneChanger : MonoBehaviour
 
         while (!operation.isDone)
         {
-            float progress = Mathf.Clamp01(operation.progress / 0.9f);
-            
-            loadingBarFill.value = progress;
-            yield return null;
+            loadingBar.incrementCurrentValue();
+            //wait for the next frame
+            yield return new WaitForEndOfFrame();
         }
+
+        LoadingScreenObject.SetActive(false);
+
     }
 }

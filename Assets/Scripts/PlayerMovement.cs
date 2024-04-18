@@ -25,7 +25,7 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
+        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
         {
             // get the input from the player
             movement.x = Input.GetAxisRaw("Horizontal");
@@ -35,18 +35,21 @@ public class PlayerMovement : MonoBehaviour
         {
             movement.x = 0;
             movement.y = 0;
-        }        
+        }
     }
 
     void FixedUpdate()
     {
         //get the direction of the player and move it
-        
-        if(movement.x != 0 && movement.y != 0)
+        //get the animator 
+        Animator animator = GetComponent<Animator>();
+
+        if (movement.x != 0 && movement.y != 0)
         {
             if (canMove(new Vector2(movement.x, movement.y)))
             {
                 rb.MovePosition(rb.position + new Vector2(movement.x, movement.y) * movSpeed * Time.fixedDeltaTime);
+
             }
         }
         else if (movement.x != 0)
@@ -64,26 +67,44 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        //get the animator 
-        Animator animator = GetComponent<Animator>();
-        animator.SetFloat("Horizontal", movement.x);
-        animator.SetFloat("Vertical", movement.y);
 
         if (movement.x > 0)
         {
             direction = movementDirection.Right;
+            animator.SetFloat("movement", 1);
         }
         else if (movement.x < 0)
         {
             direction = movementDirection.Left;
+            animator.SetFloat("movement", -1);
         }
         else if (movement.y > 0)
         {
             direction = movementDirection.Up;
+            animator.SetFloat("movement", -2);
         }
         else if (movement.y < 0)
         {
             direction = movementDirection.Down;
+            animator.SetFloat("movement", 2);
+        }
+        else
+        {
+            switch (direction)
+            {
+                case movementDirection.Up:
+                    animator.SetFloat("movement", 6);
+                    break;
+                case movementDirection.Down:
+                    animator.SetFloat("movement", 3);
+                    break;
+                case movementDirection.Left:
+                    animator.SetFloat("movement", 4);
+                    break;
+                case movementDirection.Right:
+                    animator.SetFloat("movement", 5);
+                    break;
+            }
         }
     }
 
