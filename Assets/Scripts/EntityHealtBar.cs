@@ -46,5 +46,25 @@ public class EntityHealtBar : MonoBehaviour
         }
     }
 
+    public void setHealth(int health)
+    {
+        currentHealth = health;
+    }
+
+    public int getHealth()
+    {
+        return currentHealth;
+    }
+
+    public void setMaxHealth(int health)
+    {
+        maxHealth = health;
+    }
+
+    public int getMaxHealth()
+    {
+        return maxHealth;
+    }
+
     
 }

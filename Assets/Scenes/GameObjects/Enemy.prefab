@@ -299,9 +299,10 @@ GameObject:
   - component: {fileID: 4752196259512269839}
   - component: {fileID: 8482168888563306932}
   - component: {fileID: 28143287947409011}
-  - component: {fileID: 5396257382570876998}
   - component: {fileID: 3146415661417112183}
   - component: {fileID: 8545207990023374496}
+  - component: {fileID: -5973118420523547441}
+  - component: {fileID: 3005259769536139041}
   m_Layer: 23
   m_Name: Enemy
   m_TagString: Enemy
@@ -405,21 +406,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &5396257382570876998
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5371676584536699800}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1c68d24d189df2742a15c890b816eaa8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  movSpeed: 3
-  rb: {fileID: 28143287947409011}
-  player: {fileID: 0}
 --- !u!114 &3146415661417112183
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -479,6 +465,34 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &-5973118420523547441
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5371676584536699800}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 569ef3bc1c6675c438eeb6926dc51a18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  entityHealtBar: {fileID: 3146415661417112183}
+--- !u!114 &3005259769536139041
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5371676584536699800}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4f274496ffbded498210bf58b178380, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  aStarManager: {fileID: 0}
+  playerPosition: {fileID: 8472709481713453917, guid: d3109d770302f42b1abd880598980ac6,
+    type: 3}
 --- !u!1 &6013002950088368661
 GameObject:
   m_ObjectHideFlags: 0

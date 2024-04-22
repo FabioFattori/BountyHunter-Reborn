@@ -13,6 +13,8 @@ public class PlayerMovement : MonoBehaviour
     //get the player health script
     public EntityHealtBar playerHealth;
 
+    public loadTile map;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -30,12 +32,38 @@ public class PlayerMovement : MonoBehaviour
             // get the input from the player
             movement.x = Input.GetAxisRaw("Horizontal");
             movement.y = Input.GetAxisRaw("Vertical");
+
+            checkMovementValidity(ref movement);
         }
         else
         {
             movement.x = 0;
             movement.y = 0;
         }
+    }
+
+    private void checkMovementValidity(ref Vector2 movement){
+        if(movement.x > 0){
+            if(map.getBorderds()[2] < transform.position.x + movement.x){
+                movement.x = 0;
+            }
+        }else if(movement.x < 0){
+            if(map.getBorderds()[0] > transform.position.x + movement.x){
+                movement.x = 0;
+            }
+        }
+
+        if(movement.y > 0){
+            if(map.getBorderds()[3] < transform.position.y + movement.y){
+                movement.y = 0;
+            }
+        }else if(movement.y < 0){
+            if(map.getBorderds()[1] > transform.position.y + movement.y){
+                movement.y = 0;
+            }
+        }
+
+
     }
 
     void FixedUpdate()
@@ -131,6 +159,7 @@ public class PlayerMovement : MonoBehaviour
         {
             //If the GameObject's tag matches the one you provide, output this message in the console
             playerHealth.TakeDamage(10);
+            GetComponent<Teleporter>().cancelTeleport();
         }
     }
 }
