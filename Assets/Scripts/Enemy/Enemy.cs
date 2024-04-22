@@ -79,10 +79,13 @@ public class Enemy: MonoBehaviour{
     }
 
     public void takeKnockBack(Vector3 directionOfAttack){
+        Debug.Log("Knockback in direction "+ directionOfAttack);
         //sum the direction of the attack to the current position of the enemy
-        Vector3 target = this.transform.position + directionOfAttack*10;
+        Vector3 target = this.transform.position + new Vector3(directionOfAttack.x*10, directionOfAttack.y * 10, 0);
 
-        this.transform.position = Vector3.MoveTowards(this.transform.position, target, 10 * Time.deltaTime);
+        Debug.Log("Target: " + target);
+
+        this.transform.position = Vector3.MoveTowards(this.transform.position, target, 1 );
     }
 
     public string toString(){

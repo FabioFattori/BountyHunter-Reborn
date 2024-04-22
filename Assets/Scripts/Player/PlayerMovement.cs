@@ -142,7 +142,7 @@ public class PlayerMovement : MonoBehaviour
         // check the direction of the player and if the next tile is a wall or not 
         Vector2 pos = transform.position;
         RaycastHit2D hit = Physics2D.Linecast(pos + dir, pos);
-        if (!hit.collider.name.Equals("Player") && !hit.collider.tag.Equals("Enemy"))
+        if (!hit.collider.tag.Equals("Player") &&  !hit.collider.tag.Equals("AttackArea"))
         {
             return false;
         }

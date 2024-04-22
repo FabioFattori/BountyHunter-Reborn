@@ -35,7 +35,7 @@ public class EnemyFindPath : MonoBehaviour
         else
         {
             var path = FindPath();
-            if (path.Count > 0)
+            if (path.Count >= 2)
             {
                 Vector3Int nextPos = path[1];
                 animate(nextPos);

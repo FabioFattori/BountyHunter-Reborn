@@ -8,7 +8,13 @@ public class EntityHealtBar : MonoBehaviour
     public int maxHealth = 100;
     private int currentHealth;
 
+    public bool canRegen = false;
+
     private int oldFrameHealth;
+
+    private int regenRate; //health per second 1/16 of the max health
+
+    private float timer = 0; 
 
     public Slider graphicHealtBar;
 
@@ -24,15 +30,15 @@ public class EntityHealtBar : MonoBehaviour
 
     public void Die()
     {
-        Debug.Log("Entity " + this.name + " died!");
-        // if(this.CompareTag("Player"))
-        // {
-        //     GameObject.Find("ChangeScene").GetComponent<SceneChanger>().ChangeScene(SceneChanger.Scene.GameOver);
-        // }
-        // else
-        // {
-        //     Destroy(gameObject);
-        // }
+        
+        if(this.CompareTag("Player"))
+        {
+            GameObject.Find("ChangeScene").GetComponent<SceneChanger>().ChangeScene(SceneChanger.Scene.GameOver);
+        }
+        else if(this.CompareTag("Enemy"))
+        {
+            GameObject.Find("EnemyManager").GetComponent<EnemySpawner>().removeEnemy(GetComponent<Enemy>().getID());
+        }
     }
     
     // Start is called before the first frame update
@@ -50,7 +56,22 @@ public class EntityHealtBar : MonoBehaviour
         {
             graphicHealtBar.value = currentHealth;
             oldFrameHealth = currentHealth;
+            timer = 0;
 
+        }
+
+        if(canRegen)
+        {
+            timer += Time.deltaTime;
+            if (timer >= 5)
+            {
+                currentHealth += maxHealth / 16;
+                if (currentHealth > maxHealth)
+                {
+                    currentHealth = maxHealth;
+                }
+                graphicHealtBar.value = currentHealth;
+            }
         }
     }
 

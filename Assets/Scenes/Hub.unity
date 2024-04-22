@@ -168,6 +168,11 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3473406569244037276, guid: d3109d770302f42b1abd880598980ac6,
+        type: 3}
+      propertyPath: m_Layer
+      value: 24
+      objectReference: {fileID: 0}
     - target: {fileID: 4633616066900475082, guid: d3109d770302f42b1abd880598980ac6,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -227,6 +232,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8620468861039371467, guid: d3109d770302f42b1abd880598980ac6,
+        type: 3}
+      propertyPath: m_ExcludeLayers.m_Bits
+      value: 16777216
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

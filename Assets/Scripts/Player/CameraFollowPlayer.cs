@@ -20,20 +20,23 @@ public class followPlayer : MonoBehaviour
         var borders = map.getBorderds();
         var newPosition = player.position.x;
 
+        Camera camera = GetComponent<Camera>();
+        //get the size of the camera
 
-        if (borders[0] + cam.orthographicSize + 4 > player.position.x)
+
+        if (borders[0] + cam.orthographicSize + cam.orthographicSize-1 > player.position.x)
         {
             outOfBounds = true;
-            Vector3 targetPosition = new Vector3(borders[0] + cam.orthographicSize + 4, player.position.y, transform.position.z);
+            Vector3 targetPosition = new Vector3(borders[0] + cam.orthographicSize + cam.orthographicSize-1, player.position.y, transform.position.z);
             transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, smoothTime);
-            newPosition = borders[0] + cam.orthographicSize + 4;
+            newPosition = borders[0] + cam.orthographicSize + cam.orthographicSize-1;
         }
-        else if (borders[2] - cam.orthographicSize - 4 < player.position.x)
+        else if (borders[2] - cam.orthographicSize - cam.orthographicSize-1 < player.position.x)
         {
             outOfBounds = true;
-            Vector3 targetPosition = new Vector3(borders[2] - cam.orthographicSize - 4, player.position.y, transform.position.z);
+            Vector3 targetPosition = new Vector3(borders[2] - cam.orthographicSize - cam.orthographicSize-1, player.position.y, transform.position.z);
             transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, smoothTime);
-            newPosition = borders[2] - cam.orthographicSize - 4;
+            newPosition = borders[2] - cam.orthographicSize - cam.orthographicSize-1;
         }
         if (borders[1] + cam.orthographicSize > player.position.y)
         {

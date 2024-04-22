@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,13 +11,14 @@ public class EnemySpawner : MonoBehaviour
 
     public int maxEnemies = 10;
     
-      private  int despawnDistance = 15;
+    private  int despawnDistance = 0;
     private List<GameObject> enemiesSpawned;
 
     // Start is called before the first frame update
     void Start()
     {
         enemiesSpawned = new List<GameObject>();
+        despawnDistance = (int)Math.Floor(GameObject.Find("Main Camera").GetComponent<Camera>().orthographicSize *2);
     }
 
     // Update is called once per frame
@@ -26,7 +28,7 @@ public class EnemySpawner : MonoBehaviour
         {
             foreach (var enemy in enemyPrefabs)
             {
-                if (Random.Range(0, 1000) < 1)
+                if (UnityEngine.Random.Range(0, 1000) < 1)
                 {
                     StartCoroutine(SpawnEnemy(enemy));
                 }
@@ -51,10 +53,10 @@ public class EnemySpawner : MonoBehaviour
     {
         var enemy = Instantiate(enemyPrefab, getRandomPosition(), Quaternion.identity);
         enemy.GetComponent<Enemy>().setID(enemiesSpawned.Count);
-        enemy.GetComponent<Enemy>().setHealth(Random.Range(50, 100));
-        enemy.GetComponent<Enemy>().setDamage(Random.Range(10, 20));
-        enemy.GetComponent<Enemy>().setSpeed(Random.Range(2, 6));
-        enemy.GetComponent<Enemy>().setRange(Random.Range(1, 3));
+        enemy.GetComponent<Enemy>().setHealth(UnityEngine.Random.Range(50, 100));
+        enemy.GetComponent<Enemy>().setDamage(UnityEngine.Random.Range(10, 20));
+        enemy.GetComponent<Enemy>().setSpeed(UnityEngine.Random.Range(2, 6));
+        enemy.GetComponent<Enemy>().setRange(UnityEngine.Random.Range(1, 3));
         return enemy;
     }
 
@@ -65,8 +67,8 @@ public class EnemySpawner : MonoBehaviour
         int x, y;
         do
         {
-            x = Random.Range(apprPlayerPosition.x - despawnDistance > map.getBorderds()[0] ? apprPlayerPosition.x - despawnDistance : map.getBorderds()[0], apprPlayerPosition.x + despawnDistance < map.getBorderds()[2] ? apprPlayerPosition.x + despawnDistance : map.getBorderds()[2]);
-            y = Random.Range(apprPlayerPosition.y - despawnDistance > map.getBorderds()[1] ? apprPlayerPosition.y - despawnDistance : map.getBorderds()[1], apprPlayerPosition.y + despawnDistance < map.getBorderds()[3] ? apprPlayerPosition.y + despawnDistance : map.getBorderds()[3]);
+            x = UnityEngine.Random.Range(apprPlayerPosition.x - despawnDistance > map.getBorderds()[0] ? apprPlayerPosition.x - despawnDistance : map.getBorderds()[0], apprPlayerPosition.x + despawnDistance < map.getBorderds()[2] ? apprPlayerPosition.x + despawnDistance : map.getBorderds()[2]);
+            y = UnityEngine.Random.Range(apprPlayerPosition.y - despawnDistance > map.getBorderds()[1] ? apprPlayerPosition.y - despawnDistance : map.getBorderds()[1], apprPlayerPosition.y + despawnDistance < map.getBorderds()[3] ? apprPlayerPosition.y + despawnDistance : map.getBorderds()[3]);
         } while (!map.checkValidTile(new Vector3Int(x, y, 0)));
         return new Vector3(x, y, 0);
     }
