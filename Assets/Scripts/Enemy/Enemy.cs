@@ -5,6 +5,8 @@ using UnityEngine;
 public class Enemy: MonoBehaviour{
 
     private int ID;
+
+    
     private int damage;
 
     public EntityHealtBar entityHealtBar;
@@ -13,15 +15,7 @@ public class Enemy: MonoBehaviour{
     private int attackSpeed;
     private int attackRange;
 
-    public Enemy(int id ,int health, int damage, int speed, int range, int attackSpeed, int attackRange){
-        this.ID = id;
-        entityHealtBar.setMaxHealth(health);
-        this.damage = damage;
-        this.speed = speed;
-        this.range = range;
-        this.attackSpeed = attackSpeed;
-        this.attackRange = attackRange;
-    }
+    
 
     public int getID(){
         return ID;
@@ -78,6 +72,17 @@ public class Enemy: MonoBehaviour{
 
     public void setAttackRange(int attackRange){
         this.attackRange = attackRange;
+    }
+
+    public void TakeDamage(int damage){
+        entityHealtBar.TakeDamage(damage);
+    }
+
+    public void takeKnockBack(Vector3 directionOfAttack){
+        //sum the direction of the attack to the current position of the enemy
+        Vector3 target = this.transform.position + directionOfAttack*10;
+
+        this.transform.position = Vector3.MoveTowards(this.transform.position, target, 10 * Time.deltaTime);
     }
 
     public string toString(){

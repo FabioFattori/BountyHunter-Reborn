@@ -34,6 +34,9 @@ public class SceneChanger : MonoBehaviour
             case Scene.MainMenu:
                 LoadScene("BountyHunter");
                 break;
+            case Scene.GameOver:
+                LoadScene("GameOver");
+                break;
             default:
                 LoadScene("OpenWorld");
                 break;
@@ -53,6 +56,8 @@ public class SceneChanger : MonoBehaviour
             //change the display of the loading screen
             LoadingScreenObject.SetActive(false);
         }
+
+        
     }
 
     private void LoadScene(string sceneName)

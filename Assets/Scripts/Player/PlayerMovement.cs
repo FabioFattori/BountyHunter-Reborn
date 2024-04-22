@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public float movSpeed = 5f;
+
     Vector2 movement;
     public Rigidbody2D rb;
 
@@ -151,15 +152,5 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    void OnCollisionEnter2D(Collision2D collision)
-    {
-
-        //Check for a match with the specific tag on any GameObject that collides with your GameObject
-        if (collision.gameObject.tag == "Enemy")
-        {
-            //If the GameObject's tag matches the one you provide, output this message in the console
-            playerHealth.TakeDamage(10);
-            GetComponent<Teleporter>().cancelTeleport();
-        }
-    }
+    
 }

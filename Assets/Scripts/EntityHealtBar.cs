@@ -24,7 +24,15 @@ public class EntityHealtBar : MonoBehaviour
 
     public void Die()
     {
-        Destroy(gameObject);
+        Debug.Log("Entity " + this.name + " died!");
+        // if(this.CompareTag("Player"))
+        // {
+        //     GameObject.Find("ChangeScene").GetComponent<SceneChanger>().ChangeScene(SceneChanger.Scene.GameOver);
+        // }
+        // else
+        // {
+        //     Destroy(gameObject);
+        // }
     }
     
     // Start is called before the first frame update
@@ -59,6 +67,8 @@ public class EntityHealtBar : MonoBehaviour
     public void setMaxHealth(int health)
     {
         maxHealth = health;
+        //get the slider component which is in a canvas object
+        GetComponentInChildren<Canvas>().GetComponentInChildren<Slider>().maxValue = maxHealth;
     }
 
     public int getMaxHealth()

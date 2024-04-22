@@ -10,7 +10,7 @@ public class EnemySpawner : MonoBehaviour
 
     public int maxEnemies = 10;
     
-      private  int despawnDistance = 10;
+      private  int despawnDistance = 15;
     private List<GameObject> enemiesSpawned;
 
     // Start is called before the first frame update
@@ -53,7 +53,7 @@ public class EnemySpawner : MonoBehaviour
         enemy.GetComponent<Enemy>().setID(enemiesSpawned.Count);
         enemy.GetComponent<Enemy>().setHealth(Random.Range(50, 100));
         enemy.GetComponent<Enemy>().setDamage(Random.Range(10, 20));
-        enemy.GetComponent<Enemy>().setSpeed(Random.Range(1, 3));
+        enemy.GetComponent<Enemy>().setSpeed(Random.Range(2, 6));
         enemy.GetComponent<Enemy>().setRange(Random.Range(1, 3));
         return enemy;
     }
