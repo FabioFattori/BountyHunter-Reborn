@@ -10,10 +10,12 @@ public class PlayerAttack : MonoBehaviour
     private float attackTime=0f;
 
     private float timer = 0f;
+
     // Start is called before the first frame update
+    [System.Obsolete]
     void Start()
     {
-        AttackArea = transform.GetChild(1).gameObject;
+        AttackArea = transform.GetChild(transform.GetChildCount()-1).gameObject;
 
         //get the attack time from the attack area
         attackTime = AttackArea.GetComponent<AttackArea>().getTimeToAttack();
@@ -66,11 +68,17 @@ public class PlayerAttack : MonoBehaviour
             isAttacking=true;
             AttackArea.SetActive(true);
         }
+
+        this.GetComponent<Teleporter>().cancelTeleport();
     }
 
     public void stopAttacking(){
         isAttacking=false;
         AttackArea.SetActive(false);
         timer = 0f;
+    }
+
+    public void setAttackArea(GameObject attackArea){
+        AttackArea = attackArea;
     }
 }

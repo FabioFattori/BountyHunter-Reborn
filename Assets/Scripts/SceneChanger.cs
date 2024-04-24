@@ -49,15 +49,25 @@ public class SceneChanger : MonoBehaviour
         if (CurrentScene == Scene.MainMenu)
         {
             LoadingScreenObject.SetActive(true);
+            setHUDActive(false);
             ChangeScene(Scene.OpenWorld);
         }
         else
         {
             //change the display of the loading screen
+            setHUDActive(true);
             LoadingScreenObject.SetActive(false);
         }
 
         
+    }
+
+    private void setHUDActive(bool active)
+    {
+        //set the HUD active
+        if(GameObject.Find("Main Camera") != null && GameObject.Find("HUD") != null){
+                GameObject.Find("HUD").SetActive(active);
+        }
     }
 
     private void LoadScene(string sceneName)
@@ -76,7 +86,8 @@ public class SceneChanger : MonoBehaviour
             //wait for the next frame
             yield return new WaitForEndOfFrame();
         }
-
+        
+        setHUDActive(true);
         LoadingScreenObject.SetActive(false);
 
     }

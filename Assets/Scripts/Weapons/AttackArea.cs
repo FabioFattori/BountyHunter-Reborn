@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class AttackArea : MonoBehaviour
 {
+    public Sprite icon;
     protected int damage = 1;
     protected float timeToAttack = 1f;
 
