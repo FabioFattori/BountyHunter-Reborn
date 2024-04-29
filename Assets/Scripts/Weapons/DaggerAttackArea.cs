@@ -9,7 +9,8 @@ public class DaggerAttackArea : AttackArea
     void Start()
     {
         this.damage = 10;
-        this.timeToAttack = 0.5f;
+        this.attackDuration = 0.5f;
+        this.timeTillNewAttack = 0.25f;
     }
 
     

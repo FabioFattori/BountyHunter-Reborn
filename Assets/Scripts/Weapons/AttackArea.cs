@@ -1,12 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class AttackArea : MonoBehaviour
 {
+    protected movementDirection currentDirection;
     public Sprite icon;
     protected int damage = 1;
-    protected float timeToAttack = 1f;
+    protected float attackDuration = 1f;
+
+    protected float timeTillNewAttack = 1f;
 
 
     public int getDamage()
@@ -19,14 +23,34 @@ public class AttackArea : MonoBehaviour
         this.damage = damage;
     }
 
-    public float getTimeToAttack()
+    public movementDirection getCurrentDirection()
     {
-        return timeToAttack;
+        return currentDirection;
     }
 
-    public void setTimeToAttack(float timeToAttack)
+    public void setCurrentDirection(movementDirection currentDirection)
     {
-        this.timeToAttack = timeToAttack;
+        this.currentDirection = currentDirection;
+    }
+
+    public float getAttackDuration()
+    {
+        return attackDuration;
+    }
+
+    public void setAttackDuration(float attackDuration)
+    {
+        this.attackDuration = attackDuration;
+    }
+
+    public float getTimeTillNewAttack()
+    {
+        return timeTillNewAttack;
+    }
+
+    public void setTimeTillNewAttack(float timeTillNewAttack)
+    {
+        this.timeTillNewAttack = timeTillNewAttack;
     }
 
     void OnCollisionEnter2D(Collision2D other)
@@ -40,7 +64,7 @@ public class AttackArea : MonoBehaviour
         }
     }
 
-    private Vector3 getDirectionOnCollision(Collision2D collision){
+    protected Vector3 getDirectionOnCollision(Collision2D collision){
         Vector2 direction = collision.GetContact(0).point - (Vector2)transform.position;
         return direction.normalized;
     }

@@ -31,10 +31,10 @@ TagManager:
   - Layer 1
   - Layer 2
   - Layer 3
-  - Entities
+  - 
   - Weapons
   - Player
-  - 
+  - Entities
   - 
   - 
   - 
@@ -43,6 +43,9 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: weapons
+    uniqueID: 1891143733
     locked: 0
   - name: entities
     uniqueID: 2425651459

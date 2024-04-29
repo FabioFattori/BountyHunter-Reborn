@@ -8,7 +8,8 @@ public class SwordAttackArea : AttackArea
     void Start()
     {
         this.damage = 50;
-        this.timeToAttack = 2.5f;
+        this.attackDuration = 2.5f;
+        this.timeTillNewAttack = 2f;
     }
 
     // Update is called once per frame

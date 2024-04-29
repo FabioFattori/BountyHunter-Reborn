@@ -4,45 +4,74 @@ using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
 {
-    private GameObject AttackArea=default;
-    private bool isAttacking=false;
+    private GameObject AttackArea = default;
+    private bool isAttacking = false;
 
-    private float attackTime=0f;
+    private float attackTime = 0f;
 
-    private float timer = 0f;
+    private float attackCooldown = 0f;
+
+    private float timeTillNextAttack = 0f;
+
+    private float attackDuration = 0f;
+
+    public bool getIsAttacking()
+    {
+        return isAttacking;
+    }
 
     // Start is called before the first frame update
     [System.Obsolete]
     void Start()
     {
-        AttackArea = transform.GetChild(transform.GetChildCount()-1).gameObject;
+        AttackArea = transform.GetChild(transform.GetChildCount() - 1).gameObject;
 
         //get the attack time from the attack area
-        attackTime = AttackArea.GetComponent<AttackArea>().getTimeToAttack();
+        attackTime = AttackArea.GetComponent<AttackArea>().getAttackDuration();
+
+        timeTillNextAttack = AttackArea.GetComponent<AttackArea>().getTimeTillNewAttack();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.UpArrow)){
-            Attack(movementDirection.Up);
-        }else if(Input.GetKeyDown(KeyCode.DownArrow)){
-            Attack(movementDirection.Down);
-        }else if(Input.GetKeyDown(KeyCode.LeftArrow)){
-            Attack(movementDirection.Left);
-        }else if(Input.GetKeyDown(KeyCode.RightArrow)){
-            Attack(movementDirection.Right);
+        if (attackCooldown>=timeTillNextAttack)
+        {
+            if (Input.GetKeyDown(KeyCode.UpArrow))
+            {
+                Attack(movementDirection.Up);
+            }
+            else if (Input.GetKeyDown(KeyCode.DownArrow))
+            {
+                Attack(movementDirection.Down);
+            }
+            else if (Input.GetKeyDown(KeyCode.LeftArrow))
+            {
+                Attack(movementDirection.Left);
+            }
+            else if (Input.GetKeyDown(KeyCode.RightArrow))
+            {
+                Attack(movementDirection.Right);
+            }
         }
 
-        if(isAttacking){
-            timer += Time.deltaTime;
-            if(timer >= attackTime){
+        attackCooldown += Time.deltaTime;
+
+        if (isAttacking)
+        {
+            attackDuration += Time.deltaTime;
+            if (attackDuration >= attackTime)
+            {
                 stopAttacking();
             }
         }
     }
 
-    void Attack(movementDirection direction){
+    void Attack(movementDirection direction)
+    {
+        //reset attack cool down
+        attackCooldown = 0f;
+
         switch (direction)
         {
             case movementDirection.Up:
@@ -64,21 +93,30 @@ public class PlayerAttack : MonoBehaviour
             default: break;
         }
 
-        if(!isAttacking){
-            isAttacking=true;
+        AttackArea.GetComponent<AttackArea>().setCurrentDirection(direction);
+
+        if (!isAttacking)
+        {
+            isAttacking = true;
             AttackArea.SetActive(true);
         }
 
         this.GetComponent<Teleporter>().cancelTeleport();
     }
 
-    public void stopAttacking(){
-        isAttacking=false;
-        AttackArea.SetActive(false);
-        timer = 0f;
+    public void stopAttacking()
+    {
+        isAttacking = false;
+        //check if the attack area is a bow attack area
+        if (AttackArea.GetComponent<BowAttackArea>() == null)
+        {
+            AttackArea.SetActive(false);
+        }
+        attackDuration = 0f;
     }
 
-    public void setAttackArea(GameObject attackArea){
+    public void setAttackArea(GameObject attackArea)
+    {
         AttackArea = attackArea;
     }
 }

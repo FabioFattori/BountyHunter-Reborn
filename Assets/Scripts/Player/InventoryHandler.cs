@@ -42,13 +42,30 @@ public class InventoryHandler : MonoBehaviour
         {
             //set the image of the slot to the image of the attack area
             var newSlot = Instantiate(inventorySlotPrefab, slots.transform);
-            newSlot.transform.GetComponent<UnityEngine.UI.Image>().sprite = inventory.inventory[i].icon;
+            newSlot.transform.GetComponent<Image>().sprite = inventory.inventory[i].icon;
             int j = i;
-            newSlot.GetComponent<Button>().onClick.AddListener(()=> { inventory.EquipIndex(j); });
+            newSlot.GetComponent<Button>().onClick.AddListener(()=> { changeWeapon(j); });
         }
 
 
 
-        GameObject.Find("ItemImage").gameObject.GetComponent<UnityEngine.UI.Image>().sprite = inventory.AttackArea.icon;
+        if(GameObject.Find("Player").GetComponent<Inventory>().AttackArea != null){
+            changeWeapon(0);
+        }
+    }
+
+    private void changeWeapon(int index){
+        if(inventory.AttackArea is BowAttackArea){
+            //destroy all bullets
+            foreach (var bullet in ((BowAttackArea)GameObject.Find("Player").GetComponent<Inventory>().AttackArea).getBullets())
+            {
+                Destroy(bullet);
+            }   
+        }
+        
+        inventory.EquipIndex(index);
+        GameObject.Find("ItemImage").GetComponent<Image>().sprite = inventory.AttackArea.icon;
+
+        
     }
 }
